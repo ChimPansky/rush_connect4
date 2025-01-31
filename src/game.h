@@ -1,5 +1,5 @@
-#ifndef CONNECT4_H
-# define CONNECT4_H
+#ifndef GAME_H
+# define GAME_H
 
 # define MAX_BOARD_ROWS 10
 # define MAX_BOARD_COLS 10
@@ -38,8 +38,12 @@ typedef struct s_game {
     int		depth;
 }			t_game;
 
+void    print_game(t_game *game);
 void    print_board(t_board *board);
 void    free_board(t_board *board);
 int     init_game(t_game *game, int rows, int cols);
+void    play_game(t_game *game);
 
-#endif // CONNECT4_H
+int     get_ai_move();
+
+#endif // GAME_H

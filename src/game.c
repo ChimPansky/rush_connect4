@@ -1,22 +1,56 @@
 #include "game.h"
 #include "utils/libft/libft.h"
+#include "utils/get_next_line/get_next_line.h"
+#include <stdio.h>
 
-void    print_board(t_board *board) {
+void print_game(t_game *game) {
+    ft_dprintf(STDOUT_FILENO, "\n===============\n\n");
+    if (game->state == AI_TURN)
+        ft_dprintf(STDOUT_FILENO, "  AI'S TURN\n");
+    else if (game->state == PLAYER_TURN)
+        ft_dprintf(STDOUT_FILENO, "PLAYER'S TURN\n");
+    else if (game->state == PLAYER_WON)
+        ft_dprintf(STDOUT_FILENO, "  PLAYER WON\n");
+    else if (game->state == AI_WON)
+        ft_dprintf(STDOUT_FILENO, "   AI WON\n");
+    else if (game->state == DRAW)
+        ft_dprintf(STDOUT_FILENO, "    DRAW\n");
+    print_board(&game->board);
+}
 
+void print_board(t_board *board) {
+    // Print top border
+    ft_putchar_fd('+', STDOUT_FILENO);
+    for (int col = 0; col < board->cols; col++) {
+        ft_putchar_fd(' ', STDOUT_FILENO);
+        ft_putchar_fd(' ', STDOUT_FILENO);
+    }
+    ft_putchar_fd('+', STDOUT_FILENO);
     ft_putchar_fd('\n', STDOUT_FILENO);
+
     for (int row = board->rows - 1; row >= 0; --row) {
+        ft_putchar_fd('|', STDOUT_FILENO); // Left border
         for (int col = 0; col < board->cols; col++) {
             char c = board->fields[row][col].val;
             c = (c == EMPTY) ? '.' : c;
             ft_putchar_fd(c, STDOUT_FILENO);
             ft_putchar_fd(' ', STDOUT_FILENO);
         }
+        ft_putchar_fd('|', STDOUT_FILENO); // Right border
         ft_putchar_fd('\n', STDOUT_FILENO);
     }
-    ft_dprintf(STDOUT_FILENO, "\n\n");
+
+    // Print bottom border
+    ft_putchar_fd('+', STDOUT_FILENO);
+    for (int col = 0; col < board->cols; col++) {
+        ft_putchar_fd('-', STDOUT_FILENO);
+        ft_putchar_fd('-', STDOUT_FILENO);
+    }
+    ft_putchar_fd('+', STDOUT_FILENO);
+    ft_putchar_fd('\n', STDOUT_FILENO);
 }
 
-void    free_board(t_board *board) {
+void free_board(t_board *board) {
     for (int row = 0; row < board->rows; row++) {
         free(board->fields[row]);
     }
@@ -25,11 +59,13 @@ void    free_board(t_board *board) {
 }
 
 int init_game(t_game *game, int rows, int cols) {
-    if (rows < MIN_BOARD_ROWS || rows > MAX_BOARD_ROWS || cols < MIN_BOARD_COLS || cols > MAX_BOARD_COLS) {
-        ft_dprintf(STDERR_FILENO, "Error. Board size must be between %dx%d and %dx%d.\n", MIN_BOARD_ROWS, MIN_BOARD_COLS, MAX_BOARD_ROWS, MAX_BOARD_COLS);
+    if (rows < MIN_BOARD_ROWS || rows > MAX_BOARD_ROWS || cols < MIN_BOARD_COLS ||
+        cols > MAX_BOARD_COLS) {
+        ft_dprintf(STDERR_FILENO,
+                   "Error. Board size must be between %dx%d and %dx%d.\n",
+                   MIN_BOARD_ROWS, MIN_BOARD_COLS, MAX_BOARD_ROWS, MAX_BOARD_COLS);
         return 1;
     }
-
     game->board.rows = rows;
     game->board.cols = cols;
     game->board.fields = (t_field **)malloc(sizeof(t_field *) * rows);
@@ -48,5 +84,67 @@ int init_game(t_game *game, int rows, int cols) {
         }
         ft_bzero(game->board.fields[row], sizeof(t_field) * cols);
     }
+    game->state = (rand() % 2 == 0) ? PLAYER_TURN : AI_TURN;
     return 0;
+}
+
+int get_player_input() {
+    char *col_str = NULL;
+    int gnl_error = 0;
+    ft_dprintf(STDOUT_FILENO, "Enter column number: ");
+    while ((col_str = get_next_line(STDIN_FILENO, &gnl_error)) == NULL) {
+        ft_dprintf(STDOUT_FILENO, "Enter column number: ");
+    }
+    int chosen_col = ft_atoi(col_str);  // replace this with a stricter function. right now even "sdnfkjsdnf" returns 0 and is considered valid input
+    free(col_str);
+    return (chosen_col);
+}
+
+void update_game_state(t_game *game) {
+    // check for player-win, ai-win, draw
+    if (game->state == PLAYER_TURN) {
+        game->state = AI_TURN;
+    } else {
+        game->state = PLAYER_TURN;
+    }
+}
+
+static bool validate_move(t_game *game, int col) {
+    if (col < 0 || col >= game->board.cols) {
+        ft_dprintf(STDOUT_FILENO, "Invalid column number. Try again.\n");
+        return false;
+    }
+    for (int row = 0; row < game->board.rows; row++) {
+        if (game->board.fields[row][col].val == EMPTY) {
+            return true;
+        }
+    }
+    ft_dprintf(STDOUT_FILENO, "Column is full. Try again.\n");
+    return false;
+}
+
+static void make_move(t_game *game, int col) {
+    for (int row = 0; row < game->board.rows; row++) {
+        if (game->board.fields[row][col].val == EMPTY) {
+            game->board.fields[row][col].val = (game->state == PLAYER_TURN) ? PLAYER : AI;
+            break;
+        }
+    }
+}
+
+void play_game(t_game *game) {
+    int chosen_col = -1;
+    bool valid_player_move = false;
+    if (game->state == AI_TURN) {
+        chosen_col = get_ai_move(game);
+        dprintf(STDOUT_FILENO, "AI plays: %d\n", chosen_col);
+    } else {
+        while (!valid_player_move) {
+            chosen_col = get_player_input();
+            dprintf(STDOUT_FILENO, "Player chose: %d\n", chosen_col);
+            valid_player_move = validate_move(game, chosen_col);
+        }
+    }
+    make_move(game, chosen_col);
+    update_game_state(game);
 }

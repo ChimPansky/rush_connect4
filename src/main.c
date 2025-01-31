@@ -2,12 +2,11 @@
 #include "utils/get_next_line/get_next_line.h"
 #include "game.h"
 #include <stdio.h>
+#include <time.h>
 
 // allowed functions:
 // stdlib.h: malloc(), free(), rand(), srand()
 // time.h: time()
-
-
 
 int main (int argc, char **argv) {
     if (argc != 3) {
@@ -16,15 +15,15 @@ int main (int argc, char **argv) {
     }
     t_game game;
     ft_bzero(&game, sizeof(t_game));
+    srand(time(NULL));
     if (init_game(&game, ft_atoi(argv[1]), ft_atoi(argv[2])) != 0) {
         return 1;
     }
-    game.board.fields[0][0].val = PLAYER;
-    game.board.fields[0][3].val = AI;
-    game.board.fields[1][1].val = PLAYER;
-    game.board.fields[1][4].val = AI;
-    print_board(&game.board);
+    while (game.state != PLAYER_WON && game.state != AI_WON && game.state != DRAW) {
+        print_game(&game);
+        play_game(&game);
+    }
+    print_game(&game);
     free_board(&game.board);
-
     return 0;
 }
