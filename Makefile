@@ -4,7 +4,8 @@ NAME = connect4
 all: $(NAME)
 
 SOURCE_DIR = src
-LIBFT_DIR = $(SOURCE_DIR)/libft
+UTILS_DIR = $(SOURCE_DIR)/utils
+LIBFT_DIR = $(UTILS_DIR)/libft
 BUILD_DIR = build
 
 CC = cc
@@ -17,13 +18,13 @@ LIBFT = $(LIBFT_DIR)/libft.a
 $(LIBFT):
 	@make -C $(LIBFT_DIR) all
 
-FILENAMES += \
-	main.c
+SRC = \
+	$(SOURCE_DIR)/main.c \
+	$(SOURCE_DIR)/game.c 
 
-FILENAMES += \
-	get_next_line/get_next_line.c
+SRC += \
+	$(UTILS_DIR)/get_next_line/get_next_line.c
 
-SRC = $(addprefix $(SOURCE_DIR)/,$(FILENAMES))
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 DEP = $(OBJ:%.o=%.d)
 
