@@ -1,0 +1,12 @@
+.vscode
+.nfs*
+
+*.pdf
+*.o
+*.d
+*.a
+*.so
+*.out
+
+build/
+connect4
