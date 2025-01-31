@@ -13,7 +13,6 @@ This is a **Connect 4** game implemented in C, playable in the terminal. The gam
 * Configurable grid size (minimum **6 rows x 7 columns**)
 * Randomized first turn (either player or AI starts)
 * Command-line interface (CLI) for simplicity
-* Highlights winning moves
 
 ## Installation
 
@@ -66,14 +65,15 @@ Example:
 ## Example Gameplay
 
 ```
-1 | 2 | 3 | 4 | 5 | 6 | 7
------------------------------
-. | . | . | . | . | . | .
-. | . | . | . | . | . | .
-. | . | . | . | . | . | .
-. | . | . | . | . | . | .
-X | . | . | . | . | . | .
-O | X | . | . | . | . | .
+  AI'S TURN
++              +
+|. . . . . . . |
+|. . . . . . . |
+|X O . . . . . |
+|X O . . . . . |
+|O X . X . . . |
+|X O . O X O . |
++--------------+
 ```
 
 ## License
@@ -86,7 +86,7 @@ Contributions are welcome! Feel free to fork the repository, make improvements, 
 
 ## Author
 
-Developed by Martin Arsenijevic & Thomas Kasbarian.
+Developed by ...
 
 ## Acknowledgments
 
