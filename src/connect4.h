@@ -68,4 +68,7 @@ void    print_board(t_board *board);
 // ai_move.c
 int get_ai_move(t_game *game, t_ai_algo ai_algo);
 
+// minimax.c
+int minimax_logic(t_game *game);
+
 #endif // GAME_H
