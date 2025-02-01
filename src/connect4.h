@@ -16,13 +16,17 @@
 
 #define ALGO_DEPTH 5
 
-#define PLAYER_COIN "🔴"
-#define AI_COIN "🔵"
-#define EMPTY_COIN "⚪"
+#define PLAYER_COIN "🟡"
+#define AI_COIN "🔴"
+// #define EMPTY_COIN "⚫"
+#define EMPTY_COIN "⚫"
 #define VERTICAL_BAR "┃"
 #define HORIZONTAL_BAR "━"
 #define BOT_LEFT_CORNER "┗"
 #define BOT_RIGHT_CORNER "┛"
+
+// #define YELLOW "🟡"
+// 🟢 🟣 🟠 🔴 🔵
 
 
 typedef enum e_field_val {

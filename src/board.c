@@ -1,7 +1,7 @@
 #include "connect4.h"
 #include "utils/libft/libft.h"
 
-const char *field_to_graphic(t_field_val val) {
+const char *get_coin_color(t_field_val val) {
     if (val == PLAYER) {
         return PLAYER_COIN;
     } else if (val == AI) {
@@ -66,16 +66,11 @@ bool    check_draw(t_board *board) {
 }
 
 void print_board(t_board *board) {
-    for (int col = 0; col < board->cols; col++) {
-        ft_printf("%3d", col + 1);
-    }
-    ft_putchar_fd('\n', STDOUT_FILENO);
-
     for (int row = board->rows - 1; row >= 0; --row) {
         ft_printf("%s", VERTICAL_BAR);
         for (int col = 0; col < board->cols; col++) {
-            const char *field_val = field_to_graphic(board->fields[row][col].val);
-            ft_printf("%s%s", field_val, VERTICAL_BAR);
+            const char *coin = get_coin_color(board->fields[row][col].val);
+            ft_printf("%s%s", coin, VERTICAL_BAR);
         }
         ft_putchar_fd('\n', STDOUT_FILENO);
     }
@@ -89,6 +84,9 @@ void print_board(t_board *board) {
             ft_printf(HORIZONTAL_BAR HORIZONTAL_BAR);
         }
     }
-    ft_printf(BOT_RIGHT_CORNER);
+    ft_printf(BOT_RIGHT_CORNER"\n");
+    for (int col = 0; col < board->cols; col++) {
+        ft_printf("%3d", col + 1);
+    }
     ft_putchar_fd('\n', STDOUT_FILENO);
 }
