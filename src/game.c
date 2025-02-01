@@ -109,7 +109,7 @@ void update_game_state(t_game *game) {
     }
 }
 
-static bool validate_move(t_game *game, int col) {
+bool validate_move(t_game *game, int col) {
     if (col < 0 || col >= game->board.cols) {
         ft_dprintf(STDOUT_FILENO, "Invalid column number. Try again.\n");
         return false;
