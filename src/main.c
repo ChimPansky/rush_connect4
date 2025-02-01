@@ -1,7 +1,4 @@
 #include "connect4.h"
-#include "utils/libft/libft.h"
-#include <time.h>
-
 // allowed functions:
 // stdlib.h: malloc(), free(), rand(), srand()
 // time.h: time()

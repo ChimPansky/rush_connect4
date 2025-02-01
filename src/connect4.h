@@ -9,6 +9,12 @@
 # define MIN_BOARD_ROWS 6
 # define MIN_BOARD_COLS 7
 
+#include "utils/libft/libft.h"
+#include "utils/get_next_line/get_next_line.h"
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+
 typedef enum e_field_val {
     EMPTY = 0,
     PLAYER = 'X',
@@ -40,6 +46,14 @@ typedef struct s_game {
     int		depth;
 }			t_game;
 
+typedef enum s_ai_algo {
+    AI_RANDOM,
+    AI_GREEDY,
+    AI_MINIMAX,
+    AI_MINIMAX_AB,
+    AI_MONTE_CARLO
+}   t_ai_algo;
+
 // game.c
 int     init_game(t_game *game, int rows, int cols);
 void    play_game(t_game *game);
@@ -52,8 +66,9 @@ bool    check_draw(t_board *board);
 void    print_board(t_board *board);
 
 // ai_move.c
-int     get_ai_move(t_game *game);
+int get_ai_move(t_game *game, t_ai_algo ai_algo);
 
-
+// minimax.c
+int minimax_logic(t_game *game);
 
 #endif // GAME_H
