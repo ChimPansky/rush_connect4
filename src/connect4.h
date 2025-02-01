@@ -9,6 +9,12 @@
 # define MIN_BOARD_ROWS 6
 # define MIN_BOARD_COLS 7
 
+#include "utils/libft/libft.h"
+#include "utils/get_next_line/get_next_line.h"
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+
 typedef enum e_field_val {
     EMPTY = 0,
     PLAYER = 'X',
@@ -61,7 +67,5 @@ void    print_board(t_board *board);
 
 // ai_move.c
 int get_ai_move(t_game *game, t_ai_algo ai_algo);
-
-
 
 #endif // GAME_H
