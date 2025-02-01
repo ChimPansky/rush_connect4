@@ -54,7 +54,7 @@ int get_player_input() {
     while ((col_str = get_next_line(STDIN_FILENO, &gnl_error)) == NULL) {
         ft_dprintf(STDOUT_FILENO, "Enter column number: ");
     }
-    int chosen_col = ft_atoi(col_str);  // replace this with a stricter function. right now even "sdnfkjsdnf" returns 0 and is considered valid input
+    int chosen_col = ft_atoi(col_str) - 1;  // replace this with a stricter function. right now even "sdnfkjsdnf" returns 0 and is considered valid input
     free(col_str);
     return (chosen_col);
 }

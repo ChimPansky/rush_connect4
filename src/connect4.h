@@ -1,21 +1,29 @@
 #ifndef GAME_H
 # define GAME_H
 
-# include <stdbool.h>
-
-# define MAX_BOARD_ROWS 40
-# define MAX_BOARD_COLS 40
-
-# define MIN_BOARD_ROWS 6
-# define MIN_BOARD_COLS 7
-
-# define ALGO_DEPTH 5
-
+#include <stdbool.h>
 #include "utils/libft/libft.h"
 #include "utils/get_next_line/get_next_line.h"
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+
+#define MAX_BOARD_ROWS 40
+#define MAX_BOARD_COLS 40
+
+#define MIN_BOARD_ROWS 6
+#define MIN_BOARD_COLS 7
+
+#define ALGO_DEPTH 5
+
+#define PLAYER_COIN "🔴"
+#define AI_COIN "🔵"
+#define EMPTY_COIN "⚪"
+#define VERTICAL_BAR "┃"
+#define HORIZONTAL_BAR "━"
+#define BOT_LEFT_CORNER "┗"
+#define BOT_RIGHT_CORNER "┛"
+
 
 typedef enum e_field_val {
     EMPTY = 0,
