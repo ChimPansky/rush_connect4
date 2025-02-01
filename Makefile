@@ -9,7 +9,7 @@ LIBFT_DIR = $(UTILS_DIR)/libft
 BUILD_DIR = build
 
 CC = cc
-CFLAGS = -Wall #-Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 CFLAGS += -g #-Wpedantic
 # CFLAGS += -g -Og -fsanitize=address,undefined,leak
 
