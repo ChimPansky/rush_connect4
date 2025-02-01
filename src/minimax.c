@@ -13,13 +13,15 @@ static int evaluateWindow(t_field_val window[4], t_field_val player) {
             countEmpty++;
     }
     if (count_ai == 4)
-        score += 10000;
+        score += 1000;
     else if (count_ai == 3 && countEmpty == 1)
         score += 5;
     else if (count_ai == 2 && countEmpty == 2)
         score += 2;
-    if (countOpponent == 3 && countEmpty == 1)
-        score -= 30;
+    else if (countOpponent == 3 && countEmpty == 1)
+        score -= 1000;
+    if (countOpponent == 4)
+        return -100;
     return score;
 }
 
@@ -32,7 +34,7 @@ int evaluateBoard(t_game *game, t_field_val player) {
         if (game->board.fields[r][centerCol].val == player)
             centerCount++;
     }
-    score += centerCount * 3;
+    score += centerCount * 4;
     for (int r = 0; r < rows; r++) {
         for (int c = 0; c < cols - 3; c++) {
             window[0] = game->board.fields[r][c].val;

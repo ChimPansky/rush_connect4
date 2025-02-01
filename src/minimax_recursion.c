@@ -14,16 +14,6 @@ void sort_moves_by_center(int *moves, int size, int centerCol) {
     }
 }
 
-/*
-int compareMoves(const void *a, const void *b, t_game *game) {
-    int colA = *(int *)a;
-    int colB = *(int *)b;
-    int centerCol = game->board.cols / 2;
-
-    return abs(centerCol - colA) - abs(centerCol - colB);
-}
-*/
-
 static bool is_terminal(t_game *game) {
     return (game->state == PLAYER_WON || game->state == AI_WON || game->state == DRAW);
 }
