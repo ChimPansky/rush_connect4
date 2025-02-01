@@ -1,6 +1,8 @@
 #ifndef GAME_H
 # define GAME_H
 
+# include <stdbool.h>
+
 # define MAX_BOARD_ROWS 10
 # define MAX_BOARD_COLS 10
 
@@ -9,7 +11,6 @@
 
 #include "utils/libft/libft.h"
 #include "utils/get_next_line/get_next_line.h"
-#include "game.h"
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
@@ -45,14 +46,18 @@ typedef struct s_game {
     int		depth;
 }			t_game;
 
-void        print_game(t_game *game);
-void        print_board(t_board *board);
-void        free_board(t_board *board);
-int         init_game(t_game *game, int rows, int cols);
-void        play_game(t_game *game);
-int			get_player_input();
-bool		validate_move(t_game *game, int col);
+// game.c
+int     init_game(t_game *game, int rows, int cols);
+void    play_game(t_game *game);
+void    print_game(t_game *game);
 
-int			get_ai_move();
+// board.c
+void    free_board(t_board *board);
+bool    check_win(t_board *board, t_field_val player);
+bool    check_draw(t_board *board);
+void    print_board(t_board *board);
+
+// ai_move.c
+int     get_ai_move(t_game *game);
 
 #endif // GAME_H

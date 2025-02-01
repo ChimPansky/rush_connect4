@@ -1,7 +1,6 @@
-#include "game.h"
+#include "connect4.h"
 #include "utils/libft/libft.h"
 #include "utils/get_next_line/get_next_line.h"
-#include <stdio.h>
 
 void print_game(t_game *game) {
     ft_dprintf(STDOUT_FILENO, "\n===============\n\n");
@@ -16,46 +15,6 @@ void print_game(t_game *game) {
     else if (game->state == DRAW)
         ft_dprintf(STDOUT_FILENO, "    DRAW\n");
     print_board(&game->board);
-}
-
-void print_board(t_board *board) {
-    // Print top border
-    ft_putchar_fd('+', STDOUT_FILENO);
-    for (int col = 0; col < board->cols; col++) {
-        ft_putchar_fd(' ', STDOUT_FILENO);
-        ft_putchar_fd(' ', STDOUT_FILENO);
-    }
-    ft_putchar_fd('+', STDOUT_FILENO);
-    ft_putchar_fd('\n', STDOUT_FILENO);
-
-    for (int row = board->rows - 1; row >= 0; --row) {
-        ft_putchar_fd('|', STDOUT_FILENO); // Left border
-        for (int col = 0; col < board->cols; col++) {
-            char c = board->fields[row][col].val;
-            c = (c == EMPTY) ? '.' : c;
-            ft_putchar_fd(c, STDOUT_FILENO);
-            ft_putchar_fd(' ', STDOUT_FILENO);
-        }
-        ft_putchar_fd('|', STDOUT_FILENO); // Right border
-        ft_putchar_fd('\n', STDOUT_FILENO);
-    }
-
-    // Print bottom border
-    ft_putchar_fd('+', STDOUT_FILENO);
-    for (int col = 0; col < board->cols; col++) {
-        ft_putchar_fd('-', STDOUT_FILENO);
-        ft_putchar_fd('-', STDOUT_FILENO);
-    }
-    ft_putchar_fd('+', STDOUT_FILENO);
-    ft_putchar_fd('\n', STDOUT_FILENO);
-}
-
-void free_board(t_board *board) {
-    for (int row = 0; row < board->rows; row++) {
-        free(board->fields[row]);
-    }
-    free(board->fields);
-    board->fields = NULL;
 }
 
 int init_game(t_game *game, int rows, int cols) {
@@ -100,9 +59,14 @@ int get_player_input() {
     return (chosen_col);
 }
 
-void update_game_state(t_game *game) {
-    // check for player-win, ai-win, draw
-    if (game->state == PLAYER_TURN) {
+void    update_game_state(t_game *game) {
+    if (check_win(&game->board, PLAYER)) {
+        game->state = PLAYER_WON;
+    } else if (check_win(&game->board, AI)) {
+        game->state = AI_WON;
+    } else if (check_draw(&game->board)) {
+        game->state = DRAW;
+    } else if (game->state == PLAYER_TURN) {
         game->state = AI_TURN;
     } else {
         game->state = PLAYER_TURN;
@@ -137,11 +101,11 @@ void play_game(t_game *game) {
     bool valid_player_move = false;
     if (game->state == AI_TURN) {
         chosen_col = get_ai_move(game);
-        dprintf(STDOUT_FILENO, "AI plays: %d\n", chosen_col);
+        ft_dprintf(STDOUT_FILENO, "AI plays: %d\n", chosen_col);
     } else {
         while (!valid_player_move) {
             chosen_col = get_player_input();
-            dprintf(STDOUT_FILENO, "Player chose: %d\n", chosen_col);
+            ft_dprintf(STDOUT_FILENO, "Player chose: %d\n", chosen_col);
             valid_player_move = validate_move(game, chosen_col);
         }
     }

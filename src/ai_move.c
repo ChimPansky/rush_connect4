@@ -1,4 +1,4 @@
-#include "game.h"
+#include "connect4.h"
 
 static int evaluateWindow(t_field_val window[4], t_field_val player) {
     int score = 0;
@@ -21,6 +21,12 @@ static int evaluateWindow(t_field_val window[4], t_field_val player) {
     if (countOpponent == 3 && countEmpty == 1)
         score -= 4;
     return score;
+}
+
+int get_ai_move(t_game *game) {
+    (void)game;
+    // Implement your AI here
+    return rand() % game->board.cols;
 }
 
 static int evaluateBoard(t_game *game, t_field_val player) {
