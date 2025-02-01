@@ -1,4 +1,4 @@
-#include "game.h"
+#include "connect4.h"
 
 static int evaluateWindow(t_field_val window[4], t_field_val player) {
     int score = 0;
@@ -22,6 +22,7 @@ static int evaluateWindow(t_field_val window[4], t_field_val player) {
         score -= 4;
     return score;
 }
+
 
 static int evaluateBoard(t_game *game, t_field_val player) {
     int score = 0, rows = game->board.rows, cols = game->board.cols;

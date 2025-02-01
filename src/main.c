@@ -1,5 +1,4 @@
-#include "game.h"
-
+#include "connect4.h"
 // allowed functions:
 // stdlib.h: malloc(), free(), rand(), srand()
 // time.h: time()

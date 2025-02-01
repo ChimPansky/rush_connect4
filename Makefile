@@ -20,8 +20,9 @@ $(LIBFT):
 
 SRC = \
 	$(SOURCE_DIR)/main.c \
-	$(SOURCE_DIR)/game.c \
 	$(SOURCE_DIR)/ai_move.c \
+	$(SOURCE_DIR)/board.c \
+	$(SOURCE_DIR)/game.c
 
 SRC += \
 	$(UTILS_DIR)/get_next_line/get_next_line.c
