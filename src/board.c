@@ -9,6 +9,28 @@ void free_board(t_board *board) {
     board->fields = NULL;
 }
 
+int init_board(t_board *board, int rows, int cols) {
+    board->rows = rows;
+    board->cols = cols;
+    board->fields = (t_field **)malloc(sizeof(t_field *) * rows);
+    if (board->fields == NULL) {
+        ft_dprintf(STDERR_FILENO, "Error. Memory allocation failed.\n");
+        return 1;
+    }
+    for (int row = 0; row < rows; row++) {
+        board->fields[row] = (t_field *)malloc(sizeof(t_field) * cols);
+        if (board->fields[row] == NULL) {
+            ft_dprintf(STDERR_FILENO, "Error. Memory allocation failed.\n");
+            while (--row) {
+                free(board->fields[row]);
+            }
+            return 1;
+        }
+        ft_bzero(board->fields[row], sizeof(t_field) * cols);
+    }
+    return 0;
+}
+
 bool    check_win(t_board *board, t_field_val player) {
     for (int row = 0; row < board->rows; row++) {
         for (int col = 0; col < board->cols; col++) {

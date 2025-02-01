@@ -25,23 +25,8 @@ int init_game(t_game *game, int rows, int cols) {
                    MIN_BOARD_ROWS, MIN_BOARD_COLS, MAX_BOARD_ROWS, MAX_BOARD_COLS);
         return 1;
     }
-    game->board.rows = rows;
-    game->board.cols = cols;
-    game->board.fields = (t_field **)malloc(sizeof(t_field *) * rows);
-    if (game->board.fields == NULL) {
-        ft_dprintf(STDERR_FILENO, "Error. Memory allocation failed.\n");
+    if (init_board(&game->board, rows, cols) != 0) {
         return 1;
-    }
-    for (int row = 0; row < rows; row++) {
-        game->board.fields[row] = (t_field *)malloc(sizeof(t_field) * cols);
-        if (game->board.fields[row] == NULL) {
-            ft_dprintf(STDERR_FILENO, "Error. Memory allocation failed.\n");
-            while (--row) {
-                free(game->board.fields[row]);
-            }
-            return 1;
-        }
-        ft_bzero(game->board.fields[row], sizeof(t_field) * cols);
     }
     game->state = (rand() % 2 == 0) ? PLAYER_TURN : AI_TURN;
     return 0;
