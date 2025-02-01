@@ -3,11 +3,13 @@
 
 # include <stdbool.h>
 
-# define MAX_BOARD_ROWS 10
-# define MAX_BOARD_COLS 10
+# define MAX_BOARD_ROWS 40
+# define MAX_BOARD_COLS 40
 
 # define MIN_BOARD_ROWS 6
 # define MIN_BOARD_COLS 7
+
+# define ALGO_DEPTH 5
 
 #include "utils/libft/libft.h"
 #include "utils/get_next_line/get_next_line.h"
@@ -70,5 +72,11 @@ int get_ai_move(t_game *game, t_ai_algo ai_algo);
 
 // minimax.c
 int minimax_logic(t_game *game);
+bool isValidMove(t_game *game, int col);
+int getAvailableRow(t_game *game, int col);
+int evaluateBoard(t_game *game, t_field_val player);
+
+// minimax_recursion.c
+int get_ai_move_minimax(t_game *game, int searchDepth);
 
 #endif // GAME_H

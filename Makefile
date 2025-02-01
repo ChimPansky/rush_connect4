@@ -23,7 +23,8 @@ SRC = \
 	$(SOURCE_DIR)/ai_move.c \
 	$(SOURCE_DIR)/board.c \
 	$(SOURCE_DIR)/game.c \
-	$(SOURCE_DIR)/minimax.c
+	$(SOURCE_DIR)/minimax.c \
+	$(SOURCE_DIR)/minimax_recursion.c
 
 SRC += \
 	$(UTILS_DIR)/get_next_line/get_next_line.c
