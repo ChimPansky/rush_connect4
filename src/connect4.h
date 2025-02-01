@@ -9,7 +9,7 @@
 # define MIN_BOARD_ROWS 6
 # define MIN_BOARD_COLS 7
 
-# define ALGO_DEPTH 5
+# define ALGO_DEPTH 10
 
 #include "utils/libft/libft.h"
 #include "utils/get_next_line/get_next_line.h"

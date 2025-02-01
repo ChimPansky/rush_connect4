@@ -19,7 +19,7 @@ static int evaluateWindow(t_field_val window[4], t_field_val player) {
     else if (count_ai == 2 && countEmpty == 2)
         score += 2;
     if (countOpponent == 3 && countEmpty == 1)
-        score -= 10;
+        score -= 30;
     return score;
 }
 
