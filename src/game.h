@@ -7,6 +7,13 @@
 # define MIN_BOARD_ROWS 6
 # define MIN_BOARD_COLS 7
 
+#include "utils/libft/libft.h"
+#include "utils/get_next_line/get_next_line.h"
+#include "game.h"
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+
 typedef enum e_field_val {
     EMPTY = 0,
     PLAYER = 'X',
@@ -38,12 +45,14 @@ typedef struct s_game {
     int		depth;
 }			t_game;
 
-void    print_game(t_game *game);
-void    print_board(t_board *board);
-void    free_board(t_board *board);
-int     init_game(t_game *game, int rows, int cols);
-void    play_game(t_game *game);
+void        print_game(t_game *game);
+void        print_board(t_board *board);
+void        free_board(t_board *board);
+int         init_game(t_game *game, int rows, int cols);
+void        play_game(t_game *game);
+int			get_player_input();
+bool		validate_move(t_game *game, int col);
 
-int     get_ai_move();
+int			get_ai_move();
 
 #endif // GAME_H
