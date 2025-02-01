@@ -9,6 +9,37 @@ void free_board(t_board *board) {
     board->fields = NULL;
 }
 
+// how to use:
+/*
+t_board new_board;
+if (copy_board(&new_board, &old_board) != 0) {
+    return 1;
+}
+print_board(&new_board);
+free_board(&new_board);
+*/
+int copy_board(t_board *dst, t_board *src) {
+    dst->rows = src->rows;
+    dst->cols = src->cols;
+    dst->fields = (t_field **)malloc(sizeof(t_field *) * src->rows);
+    if (dst->fields == NULL) {
+        ft_dprintf(STDERR_FILENO, "Error. Memory allocation failed.\n");
+        return 1;
+    }
+    for (int row = 0; row < src->rows; row++) {
+        dst->fields[row] = (t_field *)malloc(sizeof(t_field) * src->cols);
+        if (dst->fields[row] == NULL) {
+            ft_dprintf(STDERR_FILENO, "Error. Memory allocation failed.\n");
+            while (--row) {
+                free(dst->fields[row]);
+            }
+            return 1;
+        }
+        ft_memcpy(dst->fields[row], src->fields[row], sizeof(t_field) * src->cols);
+    }
+    return 0;
+}
+
 int init_board(t_board *board, int rows, int cols) {
     board->rows = rows;
     board->cols = cols;

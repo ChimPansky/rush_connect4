@@ -61,6 +61,7 @@ void    print_game(t_game *game);
 
 // board.c
 int     init_board(t_board *board, int rows, int cols);
+int     copy_board(t_board *dst, t_board *src);
 void    free_board(t_board *board);
 bool    check_win(t_board *board, t_field_val player);
 bool    check_draw(t_board *board);
