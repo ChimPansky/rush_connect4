@@ -46,6 +46,14 @@ typedef struct s_game {
     int		depth;
 }			t_game;
 
+typedef enum s_ai_algo {
+    AI_RANDOM,
+    AI_GREEDY,
+    AI_MINIMAX,
+    AI_MINIMAX_AB,
+    AI_MONTE_CARLO
+}   t_ai_algo;
+
 // game.c
 int     init_game(t_game *game, int rows, int cols);
 void    play_game(t_game *game);
@@ -58,6 +66,6 @@ bool    check_draw(t_board *board);
 void    print_board(t_board *board);
 
 // ai_move.c
-int     get_ai_move(t_game *game);
+int get_ai_move(t_game *game, t_ai_algo ai_algo);
 
 #endif // GAME_H

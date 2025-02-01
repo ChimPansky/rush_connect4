@@ -1,5 +1,20 @@
 #include "connect4.h"
 
+int get_ai_move(t_game *game, t_ai_algo ai_algo) {
+    if (ai_algo == AI_RANDOM) {
+        return rand() % game->board.cols;
+    } else if (ai_algo == AI_GREEDY) {
+        return 0; // Implement your AI here
+    } else if (ai_algo == AI_MINIMAX) {
+        return 0; // Implement your AI here
+    } else if (ai_algo == AI_MINIMAX_AB) {
+        return 0; // Implement your AI here
+    } else if (ai_algo == AI_MONTE_CARLO) {
+        return 0; // Implement your AI here
+    }
+    return 0;
+}
+
 static int evaluateWindow(t_field_val window[4], t_field_val player) {
     int score = 0;
     t_field_val opponent = (player == PLAYER) ? AI : PLAYER;
