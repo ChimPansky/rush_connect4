@@ -100,7 +100,7 @@ void play_game(t_game *game) {
     int chosen_col = -1;
     bool valid_player_move = false;
     if (game->state == AI_TURN) {
-        chosen_col = get_ai_move(game, AI_RANDOM);
+        chosen_col = get_ai_move(game, AI_MINIMAX);
         ft_dprintf(STDOUT_FILENO, "AI plays: %d\n", chosen_col);
     } else {
         while (!valid_player_move) {
