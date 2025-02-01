@@ -1,6 +1,5 @@
 #include "connect4.h"
 
-
 static int evaluateWindow(t_field_val window[4], t_field_val player) {
     int score = 0;
     t_field_val opponent = (player == PLAYER) ? AI : PLAYER;
@@ -20,12 +19,11 @@ static int evaluateWindow(t_field_val window[4], t_field_val player) {
     else if (count_ai == 2 && countEmpty == 2)
         score += 2;
     if (countOpponent == 3 && countEmpty == 1)
-        score -= 4;
+        score -= 10;
     return score;
 }
 
-
-static int evaluateBoard(t_game *game, t_field_val player) {
+int evaluateBoard(t_game *game, t_field_val player) {
     int score = 0, rows = game->board.rows, cols = game->board.cols;
     int centerCol = cols / 2, centerCount = 0;
     t_field_val window[4];
@@ -74,11 +72,11 @@ static int evaluateBoard(t_game *game, t_field_val player) {
     return score;
 }
 
-static bool isValidMove(t_game *game, int col) {
+bool isValidMove(t_game *game, int col) {
     return game->board.fields[game->board.rows - 1][col].val == EMPTY;
 }
 
-static int getAvailableRow(t_game *game, int col) {
+int getAvailableRow(t_game *game, int col) {
     for (int r = 0; r < game->board.rows; r++) {
         if (game->board.fields[r][col].val == EMPTY)
             return r;
