@@ -13,13 +13,15 @@ static int evaluateWindow(t_field_val window[4], t_field_val player) {
             countEmpty++;
     }
     if (count_ai == 4)
-        score += 10000;
+        score += 100;
     else if (count_ai == 3 && countEmpty == 1)
         score += 5;
     else if (count_ai == 2 && countEmpty == 2)
         score += 2;
-    if (countOpponent == 3 && countEmpty == 1)
-        score -= 10;
+    else if (countOpponent == 3 && countEmpty == 1)
+        score -= 100;
+    if (countOpponent == 4)
+        return -100;
     return score;
 }
 
@@ -32,7 +34,8 @@ int evaluateBoard(t_game *game, t_field_val player) {
         if (game->board.fields[r][centerCol].val == player)
             centerCount++;
     }
-    score += centerCount * 3;
+    score += centerCount * 5;
+
     for (int r = 0; r < rows; r++) {
         for (int c = 0; c < cols - 3; c++) {
             window[0] = game->board.fields[r][c].val;
@@ -72,10 +75,6 @@ int evaluateBoard(t_game *game, t_field_val player) {
     return score;
 }
 
-bool isValidMove(t_game *game, int col) {
-    return game->board.fields[game->board.rows - 1][col].val == EMPTY;
-}
-
 int getAvailableRow(t_game *game, int col) {
     for (int r = 0; r < game->board.rows; r++) {
         if (game->board.fields[r][col].val == EMPTY)
@@ -87,7 +86,7 @@ int getAvailableRow(t_game *game, int col) {
 int minimax_logic(t_game *game) {
     int bestScore = -1000000, bestCol = 0;
     for (int col = 0; col < game->board.cols; col++) {
-        if (isValidMove(game, col)) {
+        if (getAvailableRow(game, col) != -1) {
             int row = getAvailableRow(game, col);
             game->board.fields[row][col].val = AI;
             int score = evaluateBoard(game, AI);
