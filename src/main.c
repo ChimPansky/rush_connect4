@@ -14,6 +14,7 @@ int main (int argc, char **argv) {
     if (init_game(&game, ft_atoi(argv[1]), ft_atoi(argv[2])) != 0) {
         return 1;
     }
+    ft_printf("\n");
     while (game.state != PLAYER_WON && game.state != AI_WON && game.state != DRAW) {
         print_game(&game);
         play_game(&game);
