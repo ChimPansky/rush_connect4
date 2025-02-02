@@ -1,22 +1,36 @@
 #ifndef GAME_H
 # define GAME_H
 
+#include <stdbool.h>
+#include "utils/libft/libft.h"
+#include "utils/get_next_line/get_next_line.h"
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
+#define MAX_BOARD_ROWS 40
+#define MAX_BOARD_COLS 40
 
-# define MAX_BOARD_ROWS 40
-# define MAX_BOARD_COLS 40
+#define MIN_BOARD_ROWS 6
+#define MIN_BOARD_COLS 7
 
-# define MIN_BOARD_ROWS 6
-# define MIN_BOARD_COLS 7
+#define ALGO_DEPTH 5
 
-# define ALGO_DEPTH 10
+#define PLAYER_COLOR "\033[1;33m"  // Yellow
+#define AI_COLOR "\033[1;31m"      // Red
+#define BOLD "\033[1m"
+#define RESET_FORMAT "\033[0m"      // Reset to default
+#define PLAYER_COIN "🟡"
+#define AI_COIN "🔴"
+#define EMPTY_COIN "⚫"
+#define VERTICAL_BAR "┃"
+#define HORIZONTAL_BAR "━"
+#define BOT_LEFT_CORNER "┗"
+#define BOT_RIGHT_CORNER "┛"
 
-# include <stdbool.h>
-# include "utils/libft/libft.h"
-# include "utils/get_next_line/get_next_line.h"
-# include <stdio.h>
-# include <time.h>
-# include <stdlib.h>
+// #define YELLOW "🟡"
+// 🟢 🟣 🟠 🔴 🔵
+
 
 typedef enum e_field_val {
     EMPTY = 0,
@@ -57,12 +71,20 @@ typedef enum s_ai_algo {
     AI_MONTE_CARLO
 }   t_ai_algo;
 
+typedef enum e_text_align {
+    ALIGN_LEFT,
+    ALIGN_RIGHT,
+    ALIGN_CENTER
+}   t_text_align;
+
 // game.c
 int     init_game(t_game *game, int rows, int cols);
 void    play_game(t_game *game);
 void    print_game(t_game *game);
 
 // board.c
+int     init_board(t_board *board, int rows, int cols);
+int     copy_board(t_board *dst, t_board *src);
 void    free_board(t_board *board);
 bool    check_win(t_board *board, t_field_val player);
 bool    check_draw(t_board *board);
@@ -78,5 +100,8 @@ int evaluateBoard(t_game *game, t_field_val player);
 
 // minimax_recursion.c
 int get_ai_move_minimax(t_game *game, int searchDepth);
+
+// utils/utils.c
+void printf_formatted(const char *text, bool bold, const char *color, t_text_align alignment, int col_width);
 
 #endif // GAME_H

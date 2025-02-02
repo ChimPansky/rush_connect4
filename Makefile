@@ -27,7 +27,8 @@ SRC = \
 	$(SOURCE_DIR)/minimax_recursion.c
 
 SRC += \
-	$(UTILS_DIR)/get_next_line/get_next_line.c
+	$(UTILS_DIR)/get_next_line/get_next_line.c \
+	$(UTILS_DIR)/utils.c
 
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 DEP = $(OBJ:%.o=%.d)
