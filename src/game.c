@@ -46,7 +46,6 @@ int init_game(t_game *game, int rows, int cols) {
         return 1;
     }
     game->depth = calculate_depth(game->board.rows, game->board.cols);
-    printf("CALCULATED DEPTH: %d\n", game->depth);
     game->state = (rand() % 2 == 0) ? PLAYER_TURN : AI_TURN;
     return 0;
 }
@@ -54,11 +53,10 @@ int init_game(t_game *game, int rows, int cols) {
 int get_player_input() {
     char *col_str = NULL;
     int gnl_error = 0;
-    ft_printf("Enter column number: ");
-    while ((col_str = get_next_line(STDIN_FILENO, &gnl_error)) == NULL) {
-        ft_printf("Enter column number: ");
-    }
-    int chosen_col = ft_atoi(col_str) - 1;  // replace this with a stricter function. right now even "sdnfkjsdnf" returns 0 and is considered valid input
+    ft_printf(BOLD "Enter column number: " );
+    while ((col_str = get_next_line(STDIN_FILENO, &gnl_error)) == NULL) {  }
+    ft_printf(RESET_FORMAT "\n");
+    int chosen_col = ft_atoi(col_str) - 1;
     free(col_str);
     return (chosen_col);
 }
@@ -108,7 +106,6 @@ void play_game(t_game *game) {
     } else {
         while (!valid_player_move) {
             chosen_col = get_player_input();
-            ft_printf("Player chose: %d\n", chosen_col);
             valid_player_move = validate_move(game, chosen_col);
         }
     }
