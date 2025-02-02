@@ -82,20 +82,3 @@ int getAvailableRow(t_game *game, int col) {
     }
     return -1;
 }
-
-int minimax_logic(t_game *game) {
-    int bestScore = -1000000, bestCol = 0;
-    for (int col = 0; col < game->board.cols; col++) {
-        if (getAvailableRow(game, col) != -1) {
-            int row = getAvailableRow(game, col);
-            game->board.fields[row][col].val = AI;
-            int score = evaluateBoard(game, AI);
-            game->board.fields[row][col].val = EMPTY;
-            if (score > bestScore) {
-                bestScore = score;
-                bestCol = col;
-            }
-        }
-    }
-    return bestCol;
-}

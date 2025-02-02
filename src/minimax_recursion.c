@@ -5,7 +5,7 @@ void sort_moves_by_center(int *moves, int size, int centerCol) {
         int key = moves[i];
         int j = i - 1;
 
-        while (j >= 0 && abs(centerCol - moves[j]) > abs(centerCol - key)) {
+        while (j >= 0 && ft_abs(centerCol - moves[j]) > ft_abs(centerCol - key)) {
             moves[j + 1] = moves[j];
             j--;
         }
@@ -60,29 +60,11 @@ int minimax(t_game *game, int depth, int alpha, int beta, bool maximizingPlayer)
     }
 }
 
-//for testing only
-void print_minimax_move_scores(t_game *game, int searchDepth) {
-    ft_dprintf(STDOUT_FILENO, "\n=== Minimax Move Scores ===\n");
-    for (int col = 0; col < game->board.cols; col++) {
-        if (getAvailableRow(game, col) != -1) {
-            int row = getAvailableRow(game, col);
-            game->board.fields[row][col].val = AI;  // simulate move
-            int score = minimax(game, searchDepth - 1, -1000000, 1000000, false);
-            game->board.fields[row][col].val = EMPTY; // undo move
-            ft_dprintf(STDOUT_FILENO, "Column %2d: Score = %d\n", col, score);
-        } else {
-            ft_dprintf(STDOUT_FILENO, "Column %2d: Full\n", col);
-        }
-    }
-    ft_dprintf(STDOUT_FILENO, "===========================\n\n");
-}
-
 int get_ai_move_minimax(t_game *game, int searchDepth) {
     int bestScore = -1000000, bestCol = 0;
     int alpha = -1000000, beta = 1000000;
     int cols = game->board.cols;
 
-    print_minimax_move_scores(game, ALGO_DEPTH);
     int moveOrder[cols];  
     for (int i = 0; i < cols; i++) 
         moveOrder[i] = i;

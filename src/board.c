@@ -62,9 +62,10 @@ int init_board(t_board *board, int rows, int cols) {
         board->fields[row] = (t_field *)malloc(sizeof(t_field) * cols);
         if (board->fields[row] == NULL) {
             ft_dprintf(STDERR_FILENO, "Error. Memory allocation failed.\n");
-            while (--row) {
+            while (--row > 0) {
                 free(board->fields[row]);
             }
+            free(board->fields);
             return 1;
         }
         ft_bzero(board->fields[row], sizeof(t_field) * cols);
