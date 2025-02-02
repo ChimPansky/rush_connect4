@@ -104,7 +104,7 @@ void play_game(t_game *game) {
     int chosen_col = -1;
     bool valid_player_move = false;
     if (game->state == AI_TURN) {
-        chosen_col = get_ai_move(game, AI_MINIMAX);
+        chosen_col = get_ai_move_minimax(game, game->depth);
     } else {
         while (!valid_player_move) {
             chosen_col = get_player_input();

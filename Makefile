@@ -20,7 +20,6 @@ $(LIBFT):
 
 SRC = \
 	$(SOURCE_DIR)/main.c \
-	$(SOURCE_DIR)/ai_move.c \
 	$(SOURCE_DIR)/board.c \
 	$(SOURCE_DIR)/game.c \
 	$(SOURCE_DIR)/minimax.c \
