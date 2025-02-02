@@ -6,7 +6,7 @@ int get_ai_move(t_game *game, t_ai_algo ai_algo) {
     } else if (ai_algo == AI_GREEDY) {
         return (minimax_logic(game)) ; // Implement your AI here
     } else if (ai_algo == AI_MINIMAX) {
-        return (get_ai_move_minimax(game, ALGO_DEPTH));
+        return (get_ai_move_minimax(game, game->depth));
     } else if (ai_algo == AI_MINIMAX_AB) {
         return 0; // Implement your AI here
     } else if (ai_algo == AI_MONTE_CARLO) {

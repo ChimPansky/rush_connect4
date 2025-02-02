@@ -8,13 +8,14 @@
 #include <time.h>
 #include <stdlib.h>
 
-#define MAX_BOARD_ROWS 40
-#define MAX_BOARD_COLS 40
+#define MAX_BOARD_ROWS 20
+#define MAX_BOARD_COLS 20
 
 #define MIN_BOARD_ROWS 6
 #define MIN_BOARD_COLS 7
 
-#define ALGO_DEPTH 5
+#define MIN_ALGO_DEPTH 6
+#define MAX_ALGO_DEPTH 10
 
 #define PLAYER_COLOR "\033[1;33m"  // Yellow
 #define AI_COLOR "\033[1;31m"      // Red
@@ -27,10 +28,6 @@
 #define HORIZONTAL_BAR "━"
 #define BOT_LEFT_CORNER "┗"
 #define BOT_RIGHT_CORNER "┛"
-
-// #define YELLOW "🟡"
-// 🟢 🟣 🟠 🔴 🔵
-
 
 typedef enum e_field_val {
     EMPTY = 0,
