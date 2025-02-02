@@ -2,6 +2,19 @@
 #include "utils/libft/libft.h"
 #include "utils/get_next_line/get_next_line.h"
 
+int calculate_depth(int rows, int cols) {
+    int min_sum = MIN_BOARD_ROWS + MIN_BOARD_COLS;
+    int max_sum = MAX_BOARD_ROWS + MAX_BOARD_COLS;
+    int cur_sum = rows + cols;
+
+    if (cur_sum <= min_sum) return MAX_ALGO_DEPTH;
+    if (cur_sum >= max_sum) return MIN_ALGO_DEPTH;
+
+    double factor = (double)(cur_sum - min_sum) / (max_sum - min_sum);
+    int depth = MAX_ALGO_DEPTH - (int)(factor * (MAX_ALGO_DEPTH - MIN_ALGO_DEPTH));
+    return depth;
+}
+
 void print_game(t_game *game) {
     for (int i = 0; i < (game->board.cols / 2 + 1); i++) {
         ft_printf(" ");
@@ -32,6 +45,8 @@ int init_game(t_game *game, int rows, int cols) {
     if (init_board(&game->board, rows, cols) != 0) {
         return 1;
     }
+    game->depth = calculate_depth(game->board.rows, game->board.cols);
+    printf("CALCULATED DEPTH: %d\n", game->depth);
     game->state = (rand() % 2 == 0) ? PLAYER_TURN : AI_TURN;
     return 0;
 }
@@ -89,7 +104,7 @@ void play_game(t_game *game) {
     int chosen_col = -1;
     bool valid_player_move = false;
     if (game->state == AI_TURN) {
-        chosen_col = get_ai_move_minimax(game, ALGO_DEPTH);
+        chosen_col = get_ai_move_minimax(game, game->depth);
     } else {
         while (!valid_player_move) {
             chosen_col = get_player_input();

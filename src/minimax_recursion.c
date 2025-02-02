@@ -65,15 +65,15 @@ int get_ai_move_minimax(t_game *game, int searchDepth) {
     int alpha = -1000000, beta = 1000000;
     int cols = game->board.cols;
 
+
     int moveOrder[cols];  
     for (int i = 0; i < cols; i++) 
         moveOrder[i] = i;
-
     int centerCol = cols / 2;
     sort_moves_by_center(moveOrder, cols, centerCol);
 
     for (int i = 0; i < cols; i++) {
-        int col = moveOrder[i];  
+        int col = moveOrder[i];
         if (getAvailableRow(game, col) != -1) {
             int row = getAvailableRow(game, col);
             game->board.fields[row][col].val = AI;
