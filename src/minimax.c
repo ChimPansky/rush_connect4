@@ -15,9 +15,9 @@ static int evaluateWindow(t_field_val window[4], t_field_val player) {
     if (count_ai == 4)
         score += 1000;
     else if (count_ai == 3 && countEmpty == 1)
-        score += 5;
+        score += 10;
     else if (count_ai == 2 && countEmpty == 2)
-        score += 2;
+        score += 7;
     else if (countOpponent == 3 && countEmpty == 1)
         score -= 1000;
     if (countOpponent == 4)
