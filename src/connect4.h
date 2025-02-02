@@ -73,7 +73,6 @@ int get_ai_move(t_game *game, t_ai_algo ai_algo);
 
 // minimax.c
 int minimax_logic(t_game *game);
-bool isValidMove(t_game *game, int col);
 int getAvailableRow(t_game *game, int col);
 int evaluateBoard(t_game *game, t_field_val player);
 
