@@ -67,12 +67,12 @@ bool    check_draw(t_board *board) {
 
 void print_board(t_board *board) {
     for (int row = board->rows - 1; row >= 0; --row) {
-        ft_printf("%s", VERTICAL_BAR);
+        ft_printf(VERTICAL_BAR);
         for (int col = 0; col < board->cols; col++) {
             const char *coin = get_coin_color(board->fields[row][col].val);
-            ft_printf("%s%s", coin, VERTICAL_BAR);
+            ft_printf("%s"VERTICAL_BAR, coin);
         }
-        ft_putchar_fd('\n', STDOUT_FILENO);
+        ft_printf("\n");
     }
 
     // Print bottom border
@@ -88,5 +88,5 @@ void print_board(t_board *board) {
     for (int col = 0; col < board->cols; col++) {
         ft_printf("%3d", col + 1);
     }
-    ft_putchar_fd('\n', STDOUT_FILENO);
+    ft_printf("\n\n");
 }

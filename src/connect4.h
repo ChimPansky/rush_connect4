@@ -16,9 +16,12 @@
 
 #define ALGO_DEPTH 5
 
+#define PLAYER_COLOR "\033[1;33m"  // Yellow
+#define AI_COLOR "\033[1;31m"      // Red
+#define BOLD "\033[1m"
+#define RESET_FORMAT "\033[0m"      // Reset to default
 #define PLAYER_COIN "🟡"
 #define AI_COIN "🔴"
-// #define EMPTY_COIN "⚫"
 #define EMPTY_COIN "⚫"
 #define VERTICAL_BAR "┃"
 #define HORIZONTAL_BAR "━"
@@ -68,6 +71,12 @@ typedef enum s_ai_algo {
     AI_MONTE_CARLO
 }   t_ai_algo;
 
+typedef enum e_text_align {
+    ALIGN_LEFT,
+    ALIGN_RIGHT,
+    ALIGN_CENTER
+}   t_text_align;
+
 // game.c
 int     init_game(t_game *game, int rows, int cols);
 void    play_game(t_game *game);
@@ -90,5 +99,8 @@ int evaluateBoard(t_game *game, t_field_val player);
 
 // minimax_recursion.c
 int get_ai_move_minimax(t_game *game, int searchDepth);
+
+// utils/utils.c
+void printf_formatted(const char *text, bool bold, const char *color, t_text_align alignment, int col_width);
 
 #endif // GAME_H
